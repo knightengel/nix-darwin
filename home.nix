@@ -38,7 +38,7 @@
       py = "python3";
       ls =  "eza --icons=always";
       cd = "z";
-      nixupdateconf = "darwin-rebuild switch --flake ~/nix#Engl";
+      nixupdateconf = "darwin-rebuild switch --flake ~/nix#engel";
       ll = "eza -la --icons=always";
       neofetch = "neofetch --source ~/Downloads/Aphex_Twin_logo_ASCII.txt";
     };
