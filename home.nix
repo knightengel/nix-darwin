@@ -20,6 +20,7 @@
     ani-cli
     zoxide
     qbittorrent
+    python3
   ];
 
   programs.zsh = {
