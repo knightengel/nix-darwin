@@ -14,7 +14,6 @@
     brews = [ 
       "mas"
       "cava"
-      "python3"
     ];
     casks = [
       "soulseek"
