@@ -21,6 +21,7 @@
     zoxide
     qbittorrent
     python314
+    yabai
   ];
 
   programs.zsh = {
