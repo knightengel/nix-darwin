@@ -6,7 +6,7 @@
   home.homeDirectory = "/Users/engel";
 
   programs.home-manager.enable = true;
-  
+
   home.packages = with pkgs; [
     git
     nodejs

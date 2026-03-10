@@ -20,10 +20,7 @@
         ./configuration.nix
         ./brew.nix
         
-        # Подключаем движок home-manager для darwin
         home-manager.darwinModules.home-manager
-        
-        # Подключаем движок nix-homebrew (раз он есть в inputs)
         nix-homebrew.darwinModules.nix-homebrew
       ];
     };
