@@ -23,6 +23,7 @@
     python314
     yabai
     wezterm
+    v2ray
   ];
 
   programs.zsh = {

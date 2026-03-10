@@ -19,7 +19,7 @@
       "soulseek"
     ];
     masApps = {
-
+      "Telegram" = 747648890;
     };
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
