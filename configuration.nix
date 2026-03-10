@@ -21,6 +21,14 @@
 
   programs.zsh.enable = true;
 
+  services.yabai = {
+    enable = true;
+    enableScriptingAddition = true; # Важная штука для полной власти над окнами
+  };
+
+  services.skhd.enable = true;
+
+
   # Вся настройка home-manager теперь живёт только здесь
   home-manager = {
     useGlobalPkgs = true;
