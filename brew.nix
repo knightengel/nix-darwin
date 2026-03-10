@@ -17,7 +17,6 @@
     ];
     casks = [
       "soulseek"
-      "pycharm"
     ];
     masApps = {
 
