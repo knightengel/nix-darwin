@@ -20,6 +20,7 @@
     ];
     masApps = {
       "Telegram" = 747648890;
+      "V2Box" = 6446814690;
     };
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
