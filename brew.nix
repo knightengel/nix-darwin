@@ -17,9 +17,10 @@
     ];
     casks = [
       "soulseek"
+      "pycharm"
     ];
     masApps = {
-      "Paint S" = 736473980;
+
     };
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
