@@ -22,6 +22,7 @@
     qbittorrent
     python314
     yabai
+    wezterm
   ];
 
   programs.zsh = {
