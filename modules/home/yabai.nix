@@ -5,4 +5,4 @@
     source = ../../dotfiles/yabai/yabairc;
     executable = true;
   };
-}``
+}
