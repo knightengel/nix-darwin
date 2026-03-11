@@ -8,6 +8,7 @@
     ./modules/home/rmpc.nix
     ./modules/home/yabai.nix
     ./modules/home/skhd.nix
+    ./modules/home/wezterm.nix
   ];
 
   home.stateVersion = "25.05";
