@@ -17,9 +17,7 @@
     darwinConfigurations."engel" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
-        ./configuration.nix
-        ./brew.nix
-        
+        ./configuration.nix        
         home-manager.darwinModules.home-manager
         nix-homebrew.darwinModules.nix-homebrew
       ];

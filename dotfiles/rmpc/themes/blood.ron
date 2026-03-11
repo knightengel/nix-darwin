@@ -1,0 +1,49 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+
+(
+    background_color: "#ffffff",
+    header_background_color: "#ffffff",
+    modal_background_color: "#ffffff",
+    modal_backdrop: false,
+
+    text_color: "#8b0000",
+
+    preview_label_style: (fg: "#8b0000"),
+    preview_metadata_group_style: (fg: "#8b0000", modifiers: "Bold"),
+
+    highlighted_item_style: (fg: "#ffffff", bg: "#8b0000", modifiers: "Bold"),
+    current_item_style: (fg: "#ffffff", bg: "#8b0000", modifiers: "Bold"),
+
+    borders_style: (fg: "#8b0000"),
+    highlight_border_style: (fg: "#8b0000"),
+
+    level_styles: (
+        info: (fg: "#8b0000", bg: "#ffffff"),
+        warn: (fg: "#8b0000", bg: "#ffffff", modifiers: "Bold"),
+        error: (fg: "#ffffff", bg: "#8b0000", modifiers: "Bold"),
+        debug: (fg: "#8b0000", bg: "#ffffff"),
+        trace: (fg: "#8b0000", bg: "#ffffff"),
+    ),
+
+    progress_bar: (
+        symbols: ["█", "█", "█", " ", "█"],
+        track_style: (fg: "#e8caca"),
+        elapsed_style: (fg: "#8b0000"),
+        thumb_style: (fg: "#8b0000"),
+        use_track_when_empty: true,
+    ),
+
+    scrollbar: (
+        symbols: ["│", "█", "▲", "▼"],
+        track_style: (fg: "#d9b3b3"),
+        ends_style: (fg: "#8b0000"),
+        thumb_style: (fg: "#8b0000"),
+    ),
+
+    tab_bar: (
+        active_style: (fg: "#ffffff", bg: "#8b0000", modifiers: "Bold"),
+        inactive_style: (fg: "#8b0000", bg: "#ffffff"),
+    ),
+)
