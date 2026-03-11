@@ -42,6 +42,7 @@ config.font_size = 19
 
 -- убираем таббар (у тебя yabai)
 config.enable_tab_bar = false
+config.window_decorations = "NONE"
 
 -- немного приятнее выглядит
 config.window_padding = {
