@@ -22,7 +22,8 @@
     qbittorrent
     python314
     wezterm
-    kew
+    mpd
+    rmpc
   ];
 
   programs.zsh = {
