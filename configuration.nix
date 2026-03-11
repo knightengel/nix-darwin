@@ -23,19 +23,32 @@
 
   services.yabai = {
     enable = true;
-    enableScriptingAddition = true; # Важная штука для полной власти над окнами
+    enableScriptingAddition = true;
   };
 
   services.skhd.enable = true;
 
+  services.jankyborders = {
+    enable = true;
 
-  # Вся настройка home-manager теперь живёт только здесь
+    width = 6.0;
+    style = "round";
+    hidpi = true;
+
+    active_color = "0xff8b0000";
+    inactive_color = "0xffe1e3e4";
+
+    # для лучшей совместимости с yabai
+    ax_focus = true;
+
+    # по желанию
+    # blacklist = [ "System Settings" "Calculator" ];
+    # whitelist = [ "WezTerm" "Safari" "Finder" ];
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    
-    # Прямой импорт файла home.nix
     users.engel = import ./home.nix;
   };
 }
-
