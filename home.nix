@@ -22,6 +22,7 @@
     qbittorrent
     python314
     wezterm
+    kew
   ];
 
   programs.zsh = {
