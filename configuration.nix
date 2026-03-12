@@ -9,13 +9,6 @@
     ./modules/darwin/borders.nix
   ];
 
-   nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "root" "engel" ];
-    };
-  };
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
