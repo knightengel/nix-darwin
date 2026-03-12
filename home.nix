@@ -11,6 +11,7 @@
     ./modules/home/skhd.nix
     ./modules/home/wezterm.nix
     ./modules/home/nvim.nix
+    ./modules/home/dev.nix
   ];
 
   home.stateVersion = "25.05";
