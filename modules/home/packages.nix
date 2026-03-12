@@ -6,7 +6,6 @@
     nodejs
     htop
     eza
-    neovim
     tree
     jq
     rustup
