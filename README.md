@@ -1,95 +1,93 @@
-# 🍎 Engel's Nix-Darwin Configuration
+# ⬡ Engel's Nix-Darwin
 
-> Декларативная настройка macOS через Nix — всё в одном месте, всё под контролем.
+> Декларативная настройка macOS через Nix. Всё в одном месте — система, окружение, dotfiles.
 
-[![Nix](https://img.shields.io/badge/Nix-2.0+-5277C3?style=flat-square&logo=nixos&logoColor=white)](https://nixos.org)
-[![Darwin](https://img.shields.io/badge/nix--darwin-macOS-000000?style=flat-square&logo=apple&logoColor=white)](https://github.com/LnL7/nix-darwin)
-[![Home Manager](https://img.shields.io/badge/Home%20Manager-25.05-5277C3?style=flat-square)](https://github.com/nix-community/home-manager)
+<p align="center">
+  <img src="https://img.shields.io/badge/Nix-2.0+-5277C3?style=for-the-badge&logo=nixos&logoColor=white" alt="Nix" />
+  <img src="https://img.shields.io/badge/nix--darwin-macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="nix-darwin" />
+  <img src="https://img.shields.io/badge/Home%20Manager-25.05-5277C3?style=for-the-badge" alt="Home Manager" />
+</p>
 
 ---
 
-## 📦 Что внутри
+## ✨ Что внутри
 
 | Компонент | Описание |
 |-----------|----------|
 | **nix-darwin** | Системная конфигурация macOS |
-| **home-manager** | Настройка домашней директории и пользовательских пакетов |
-| **nix-homebrew** | Интеграция Homebrew в Nix (casks, brews, mas) |
+| **home-manager** | Пользовательские пакеты, dotfiles, окружение |
+| **nix-homebrew** | Homebrew в Nix — casks, brews, mas |
 
-### Установленные пакеты
+### Тайловый менеджер окон
 
-**Nix packages:** `git` · `nodejs` · `htop` · `eza` · `neovim` · `tree` · `jq` · `rustup` · `iina` · `ani-cli` · `zoxide` · `qbittorrent`
+- **Yabai** — tiling WM для macOS
+- **skhd** — hotkey daemon
+- **Borders** — визуальные границы окон
 
-**Homebrew:** `mas` · `cava` · `soulseek` (cask)
+### Терминал и shell
 
-### Shell
+- **WezTerm** — GPU-ускоренный терминал
+- **Zsh** + Powerlevel10k
+- **zoxide** — быстрая навигация по директориям
 
-- **Zsh** с Powerlevel10k
-- **zoxide** — умная навигация по директориям
-- Автодополнение и подсветка синтаксиса
+### Медиа и развлечения
+
+- **MPD** + **rmpc** — музыкальный плеер в терминале
+- **IINA** — видеоплеер
+- **ani-cli** — аниме в терминале
+- **qBittorrent** — торрент-клиент
+
+### Редактор и утилиты
+
+- **Neovim** — полная конфигурация (LSP, Telescope, Oil, Treesitter)
+- **eza**, **htop**, **jq**, **tree**
+- **alejandra** — форматтер Nix
+
+### Homebrew
+
+| Тип | Пакеты |
+|-----|--------|
+| **brews** | mas, cava |
+| **casks** | Soulseek |
+| **mas** | Telegram, V2Box |
 
 ---
 
 ## 🚀 Установка
 
-### Предварительные требования
-
-- **macOS** (Apple Silicon — `aarch64-darwin`)
-- Права администратора
-
-### Шаг 1: Установить Nix
+### 1. Установить Nix
 
 ```bash
-# Официальный инсталлер (рекомендуется)
 sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
-
-# Или через Homebrew (если уже установлен)
-brew install nix
 ```
 
-После установки **перезапусти терминал** или выполни:
+Перезапусти терминал или:
 
 ```bash
 . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 ```
 
-### Шаг 2: Включить Flakes
-
-Убедись, что Flakes включены (обычно уже есть в новых версиях Nix):
+### 2. Включить Flakes
 
 ```bash
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-### Шаг 3: Установить nix-darwin
+### 3. Клонировать и применить
 
 ```bash
-# Клонировать репозиторий
 git clone https://github.com/YOUR_USERNAME/nix.git ~/nix
 cd ~/nix
 
-# Первый запуск — создаст конфигурацию darwin
 nix run nix-darwin# -- switch --flake ~/nix#engel
 ```
 
-> ⚠️ **Важно:** замени `YOUR_USERNAME` на свой GitHub username или путь к репозиторию.
+> Замени `YOUR_USERNAME` на свой GitHub username.
 
-### Шаг 4: Готово!
+### 4. Готово
 
-После успешной установки перезапусти терминал. Конфигурация применена.
-
----
-
-## 🔄 Обновление конфигурации
-
-```bash
-# Применить изменения
-darwin-rebuild switch --flake ~/nix#engel
-
-# Или через алиас (если настроен в zsh)
-nixupdateconf
-```
+Перезапусти терминал. Конфигурация применена.
 
 ---
 
@@ -97,12 +95,45 @@ nixupdateconf
 
 ```
 nix/
-├── flake.nix          # Flake inputs и outputs
-├── configuration.nix  # Системная конфигурация (hostname, nix, users)
-├── home.nix           # Home-manager: пакеты, zsh, алиасы
-├── brew.nix           # Homebrew: casks, brews, mas
-├── flake.lock         # Закреплённые версии зависимостей
-└── README.md
+├── flake.nix              # Flake: inputs, darwin config
+├── configuration.nix      # Точка входа darwin + home-manager
+├── home.nix               # Home-manager: импорт модулей
+├── brew.nix               # Homebrew: casks, brews, mas
+│
+├── modules/
+│   ├── darwin/            # Системные модули
+│   │   ├── system.nix     # hostname, nix, users
+│   │   ├── yabai.nix
+│   │   ├── skhd.nix
+│   │   └── borders.nix
+│   │
+│   └── home/              # Пользовательские модули
+│       ├── packages.nix
+│       ├── zsh.nix
+│       ├── p10k.nix
+│       ├── wezterm.nix
+│       ├── nvim.nix
+│       ├── yabai.nix
+│       ├── skhd.nix
+│       ├── mpd.nix
+│       └── rmpc.nix
+│
+├── dotfiles/              # Конфиги (yabai, skhd, wezterm, nvim, mpd, rmpc, p10k)
+└── flake.lock
+```
+
+---
+
+## 🔄 Обновление
+
+```bash
+darwin-rebuild switch --flake ~/nix#engel
+```
+
+Обновить inputs (nixpkgs, home-manager):
+
+```bash
+nix flake update
 ```
 
 ---
@@ -113,17 +144,24 @@ nix/
 |---------|----------|
 | `darwin-rebuild switch --flake ~/nix#engel` | Применить конфигурацию |
 | `darwin-rebuild build --flake ~/nix#engel` | Собрать без применения |
-| `darwin-rebuild check --flake ~/nix#engel` | Проверить конфигурацию |
-| `nix flake update` | Обновить inputs (nixpkgs, home-manager и т.д.) |
+| `darwin-rebuild check --flake ~/nix#engel` | Проверить синтаксис |
+| `nix flake update` | Обновить все inputs |
 
 ---
 
 ## 📝 Кастомизация
 
-1. **Пакеты** — добавь в `home.packages` в `home.nix`
-2. **Homebrew** — `brew.nix` (casks, brews, mas)
-3. **Zsh** — алиасы и плагины в `home.nix`
-4. **Система** — hostname, users в `configuration.nix`
+| Что менять | Где |
+|------------|-----|
+| Пакеты Nix | `modules/home/packages.nix` |
+| Homebrew (casks, brews, mas) | `brew.nix` |
+| Zsh, алиасы, плагины | `modules/home/zsh.nix` |
+| Powerlevel10k | `modules/home/p10k.nix` |
+| WezTerm | `dotfiles/wezterm/wezterm.lua` |
+| Neovim | `dotfiles/nvim/` |
+| Yabai правила | `dotfiles/yabai/yabairc` |
+| skhd хоткеи | `dotfiles/skhd/skhdrc` |
+| Hostname, users | `modules/darwin/system.nix` |
 
 ---
 
@@ -136,4 +174,6 @@ nix/
 
 ---
 
-*Сделано с ❤️ и Nix*
+<p align="center">
+  <sub>Сделано с ⬡ и Nix</sub>
+</p>
