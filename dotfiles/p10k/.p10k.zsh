@@ -303,6 +303,7 @@
   #
   typeset -g POWERLEVEL9K_DIR_CLASSES=(
     '~/nix(|/*)'  NIX     '󱄅'
+    '*'          DEFAULT ''
   )
   #
   # Whenever the current directory is ~/work or a subdirectory of ~/work, it gets styled with one
