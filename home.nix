@@ -10,6 +10,7 @@
     ./modules/home/yabai.nix
     ./modules/home/skhd.nix
     ./modules/home/wezterm.nix
+    ./modules/home/nvim.nix
   ];
 
   home.stateVersion = "25.05";
