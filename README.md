@@ -77,13 +77,11 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ### 3. Клонировать и применить
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/nix.git ~/nix
+git clone https://github.com/knightengel/nix.git ~/nix
 cd ~/nix
 
 nix run nix-darwin# -- switch --flake ~/nix#engel
 ```
-
-> Замени `YOUR_USERNAME` на свой GitHub username.
 
 ### 4. Готово
 
