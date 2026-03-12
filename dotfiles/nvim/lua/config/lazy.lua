@@ -1,26 +1,17 @@
-local group = vim.api.nvim_create_augroup("engel_nvim", { clear = true })
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = group,
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-})
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
+end
 
-vim.api.nvim_create_autocmd("FileType", {
-	group = group,
-	pattern = { "lua", "nix", "json", "yaml", "toml" },
-	callback = function()
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.tabstop = 2
-	end,
-})
+vim.opt.rtp:prepend(lazypath)
 
-vim.api.nvim_create_autocmd("FileType", {
-	group = group,
-	pattern = "python",
-	callback = function()
-		vim.opt_local.shiftwidth = 4
-		vim.opt_local.tabstop = 4
-	end,
+require("lazy").setup({
+  { import = "plugins" },
 })
