@@ -17,5 +17,6 @@
     wezterm
     mpd
     rmpc
+    alejandra
   ];
 }
