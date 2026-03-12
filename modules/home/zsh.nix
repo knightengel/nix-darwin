@@ -53,6 +53,14 @@
 
         bindkey '^[[A' history-search-backward
         bindkey '^[[B' history-search-forward
+
+        function chpwd() {
+          if [[ -f flake.nix ]]; then
+            PROMPT_ICON="󱄅"
+          else
+            PROMPT_ICON=""
+          fi
+        }
       '')
     ];
 
