@@ -6,7 +6,8 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      vim.o.updatetime = 250
+      vim.o.updatetime = 200
+      vim.o.signcolumn = "yes"
 
       vim.diagnostic.config({
         virtual_text = false,
@@ -16,6 +17,8 @@ return {
         float = {
           border = "rounded",
           source = "if_many",
+          header = "",
+          prefix = "",
         },
       })
 
@@ -90,13 +93,85 @@ return {
             telemetry = {
               enable = false,
             },
+            hint = {
+              enable = true,
+            },
           },
         },
       })
 
       setup_if_installed("nil_ls", "nil")
       setup_if_installed("nixd", "nixd")
-      setup_if_installed("rust_analyzer", "rust-analyzer")
+
+      setup_if_installed("rust_analyzer", "rust-analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              buildScripts = {
+                enable = true,
+              },
+            },
+            procMacro = {
+              enable = true,
+            },
+            checkOnSave = true,
+            check = {
+              command = "clippy",
+            },
+            completion = {
+              autoimport = {
+                enable = true,
+              },
+              autoself = {
+                enable = true,
+              },
+              callable = {
+                snippets = "fill_arguments",
+              },
+            },
+            imports = {
+              granularity = {
+                group = "module",
+              },
+              prefix = "self",
+            },
+            inlayHints = {
+              bindingModeHints = {
+                enable = true,
+              },
+              chainingHints = {
+                enable = true,
+              },
+              closingBraceHints = {
+                enable = true,
+                minLines = 10,
+              },
+              closureReturnTypeHints = {
+                enable = "with_block",
+              },
+              lifetimeElisionHints = {
+                enable = "skip_trivial",
+                useParameterNames = true,
+              },
+              maxLength = 25,
+              parameterHints = {
+                enable = true,
+              },
+              reborrowHints = {
+                enable = "mutable",
+              },
+              renderColons = true,
+              typeHints = {
+                enable = true,
+                hideClosureInitialization = false,
+                hideNamedConstructor = false,
+              },
+            },
+          },
+        },
+      })
 
       setup_if_installed("pyright", "pyright-langserver", {
         settings = {

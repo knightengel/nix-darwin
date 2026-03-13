@@ -40,7 +40,10 @@ return {
       cmp.setup({
         enabled = function()
           local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
-          return buftype ~= "prompt"
+          if buftype == "prompt" then
+            return false
+          end
+          return true
         end,
 
         preselect = cmp.PreselectMode.Item,
