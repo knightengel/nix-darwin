@@ -25,11 +25,8 @@
     };
 
     shellAliases = {
-      py = "python3";
       ls = "eza --icons=always";
       ll = "eza -la --icons=always";
-      nixupdateconf = "darwin-rebuild switch --flake ~/nix#engel";
-      neofetch = "neofetch --source ~/Downloads/Aphex_Twin_logo_ASCII.txt";
     };
 
     profileExtra = ''
