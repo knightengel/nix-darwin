@@ -20,6 +20,8 @@
     nixd
     pyright
     nodejs
+    rust-analyzer
+    nvim-lspconfig
   ];
 
   xdg.configFile."nvim".source = ../../dotfiles/nvim;
