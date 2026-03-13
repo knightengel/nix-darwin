@@ -1,31 +1,12 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    lazy = false,
+    branch = "master",
     build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local ts = require("nvim-treesitter")
-
-      ts.setup({
-        install_dir = vim.fn.stdpath("data") .. "/site",
-      })
-
-      ts.install({
-        "bash",
-        "json",
-        "lua",
-        "nix",
-        "python",
-        "rust",
-        "toml",
-        "vim",
-        "vimdoc",
-        "yaml",
-      })
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
           "bash",
           "json",
           "lua",
@@ -34,27 +15,17 @@ return {
           "rust",
           "toml",
           "vim",
+          "vimdoc",
           "yaml",
         },
-        callback = function(args)
-          pcall(vim.treesitter.start, args.buf)
-
-          local ft = vim.bo[args.buf].filetype
-          local indent_fts = {
-            rust = true,
-            lua = true,
-            nix = true,
-            python = true,
-            toml = true,
-          }
-
-          if indent_fts[ft] then
-            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-          end
-
-          vim.wo.foldmethod = "expr"
-          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        end,
+        auto_install = false,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+        indent = {
+          enable = true,
+        },
       })
     end,
   },
