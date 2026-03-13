@@ -25,6 +25,7 @@ return {
       luasnip.config.set_config({
         history = true,
         updateevents = "TextChanged,TextChangedI",
+        enable_autosnippets = true,
       })
 
       local has_words_before = function()
@@ -37,8 +38,16 @@ return {
       end
 
       cmp.setup({
+        enabled = function()
+          local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
+          return buftype ~= "prompt"
+        end,
+
+        preselect = cmp.PreselectMode.Item,
+
         completion = {
           completeopt = "menu,menuone,noinsert",
+          autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
         },
 
         snippet = {
@@ -56,9 +65,20 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
 
-          ["<CR>"] = cmp.mapping.confirm({
+          ["<CR>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and cmp.get_selected_entry() then
+              cmp.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+              })
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+
+          ["<C-y>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
+            select = true,
           }),
 
           ["<C-n>"] = cmp.mapping.select_next_item({
@@ -109,15 +129,45 @@ return {
         }),
 
         formatting = {
-          fields = { "abbr", "kind", "menu" },
+          fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
+            local icons = {
+              Text = "󰉿",
+              Method = "󰆧",
+              Function = "󰊕",
+              Constructor = "",
+              Field = "󰜢",
+              Variable = "󰀫",
+              Class = "󰠱",
+              Interface = "",
+              Module = "",
+              Property = "󰜢",
+              Unit = "󰑭",
+              Value = "󰎠",
+              Enum = "",
+              Keyword = "󰌋",
+              Snippet = "",
+              Color = "󰏘",
+              File = "󰈙",
+              Reference = "󰈇",
+              Folder = "󰉋",
+              EnumMember = "",
+              Constant = "󰏿",
+              Struct = "󰙅",
+              Event = "",
+              Operator = "󰆕",
+              TypeParameter = "󰅲",
+            }
+
             local source_names = {
               nvim_lsp = "[LSP]",
               luasnip = "[Snip]",
               buffer = "[Buf]",
               path = "[Path]",
             }
-            item.menu = source_names[entry.source.name]
+
+            item.kind = string.format("%s %s", icons[item.kind] or "", item.kind)
+            item.menu = source_names[entry.source.name] or ""
             return item
           end,
         },
