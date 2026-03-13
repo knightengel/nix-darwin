@@ -2,18 +2,46 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
+      vim.o.updatetime = 250
+
       vim.diagnostic.config({
-        virtual_text = true,
+        virtual_text = false,
         underline = true,
         update_in_insert = false,
         severity_sort = true,
         float = {
           border = "rounded",
+          source = "if_many",
         },
       })
 
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover,
+        { border = "rounded" }
+      )
+
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        vim.lsp.handlers.signature_help,
+        { border = "rounded" }
+      )
+
+      vim.api.nvim_create_autocmd("CursorHold", {
+        callback = function()
+          vim.diagnostic.open_float(nil, {
+            focusable = false,
+            border = "rounded",
+            source = "if_many",
+            scope = "cursor",
+          })
+        end,
+      })
+
       local lspconfig = require("lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local on_attach = function(_, bufnr)
         local opts = { buffer = bufnr, silent = true }
@@ -25,13 +53,32 @@ return {
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
         vim.keymap.set("n", "<leader>f", function()
           vim.lsp.buf.format({ async = true })
         end, opts)
+        vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<cr>", opts)
       end
 
-      lspconfig.lua_ls.setup({
-        on_attach = on_attach,
+      local function merge(base, extra)
+        return vim.tbl_deep_extend("force", base or {}, extra or {})
+      end
+
+      local function setup_if_installed(server, cmd, opts)
+        if vim.fn.executable(cmd) ~= 1 then
+          return
+        end
+
+        lspconfig[server].setup(merge(opts, {
+          capabilities = capabilities,
+          on_attach = on_attach,
+          autostart = true,
+        }))
+      end
+
+      setup_if_installed("lua_ls", "lua-language-server", {
         settings = {
           Lua = {
             diagnostics = {
@@ -40,25 +87,27 @@ return {
             workspace = {
               checkThirdParty = false,
             },
+            telemetry = {
+              enable = false,
+            },
           },
         },
       })
 
-      lspconfig.nixd.setup({
-        on_attach = on_attach,
-      })
+      setup_if_installed("nil_ls", "nil")
+      setup_if_installed("nixd", "nixd")
+      setup_if_installed("rust_analyzer", "rust-analyzer")
 
-      lspconfig.nil_ls.setup({
-        on_attach = on_attach,
-      })
-
-      lspconfig.pyright.setup({
-        on_attach = on_attach,
-      })
-
-      lspconfig.rust_analyzer.setup({
-        on_attach = on_attach,
-        autostart = true,
+      setup_if_installed("pyright", "pyright-langserver", {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
       })
     end,
   },
