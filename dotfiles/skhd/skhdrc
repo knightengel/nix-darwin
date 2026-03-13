@@ -13,3 +13,4 @@ alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 shift + alt - r : launchctl kickstart -k "gui/$(id -u)/org.nixos.yabai"
 shift + alt - b : launchctl kickstart -k "gui/$(id -u)/org.nixos.jankyborders"
+cmd - return : open -a WezTerm
