@@ -28,13 +28,13 @@ return {
 			vim.lsp.config("nixd", {})
 			vim.lsp.config("nil_ls", {})
 			vim.lsp.config("pyright", {})
-      vim.lsp.config("rust-analyzer", {})
+      vim.lsp.config("rust_analyzer", {})
 
 			vim.lsp.enable("lua_ls")
 			vim.lsp.enable("nixd")
 			vim.lsp.enable("nil_ls")
 			vim.lsp.enable("pyright")
-      vim.lsp.enable("rust-analyzer")
+      vim.lsp.enable("rust_analyzer")
 		end,
 	},
 }
