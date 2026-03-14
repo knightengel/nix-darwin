@@ -4,6 +4,7 @@
   imports = [
     ./modules/home/packages.nix
     ./modules/home/zsh.nix
+    ./modules/home/zoxide.nix
     ./modules/home/p10k.nix
     ./modules/home/mpd.nix
     ./modules/home/rmpc.nix
