@@ -1,7 +1,4 @@
-local lspconfig = require("lspconfig")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-local capabilities = cmp_nvim_lsp.default_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local on_attach = function(_, bufnr)
   local opts = { buffer = bufnr, silent = true }
@@ -20,35 +17,70 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 end
 
-local servers = {
-  lua_ls = {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          checkThirdParty = false,
-        },
-        telemetry = {
-          enable = false,
-        },
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
       },
     },
   },
+})
 
-  basedpyright = {},
-  ts_ls = {},
-  bashls = {},
-  html = {},
-  cssls = {},
-  jsonls = {},
-  gopls = {},
-  rust_analyzer = {},
-}
+vim.lsp.config("basedpyright", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 
-for server, opts in pairs(servers) do
-  opts.capabilities = capabilities
-  opts.on_attach = on_attach
-  lspconfig[server].setup(opts)
-end
+vim.lsp.config("ts_ls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("bashls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("html", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("cssls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("jsonls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("gopls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("rust_analyzer", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("basedpyright")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("bashls")
+vim.lsp.enable("html")
+vim.lsp.enable("cssls")
+vim.lsp.enable("jsonls")
+vim.lsp.enable("gopls")
+vim.lsp.enable("rust_analyzer")
