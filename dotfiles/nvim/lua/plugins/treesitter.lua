@@ -1,32 +1,29 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local ok, configs = pcall(require, "nvim-treesitter.configs")
-      if not ok then
-        return
-      end
-
-      configs.setup({
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          "bash",
-          "json",
           "lua",
-          "nix",
-          "python",
-          "rust",
-          "toml",
           "vim",
           "vimdoc",
+          "query",
+          "bash",
+          "markdown",
+          "markdown_inline",
+          "json",
           "yaml",
+          "toml",
+          "python",
+          "rust",
+          "nix",
         },
-        auto_install = false,
+        auto_install = true,
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false,
         },
         indent = {
           enable = true,

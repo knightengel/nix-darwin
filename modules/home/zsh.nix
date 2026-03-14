@@ -25,6 +25,7 @@
     };
 
     shellAliases = {
+      cd = "z"
       ls = "eza --icons=always";
       ll = "eza -la --icons=always";
     };

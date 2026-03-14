@@ -39,18 +39,16 @@ return {
 
       cmp.setup({
         enabled = function()
-          local buftype = vim.api.nvim_get_option_value("buftype", { buf = 0 })
-          if buftype == "prompt" then
-            return false
-          end
-          return true
+          return vim.bo.buftype ~= "prompt"
         end,
 
-        preselect = cmp.PreselectMode.Item,
+        preselect = cmp.PreselectMode.None,
 
         completion = {
           completeopt = "menu,menuone,noinsert",
-          autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
+          autocomplete = {
+            require("cmp.types").cmp.TriggerEvent.TextChanged,
+          },
         },
 
         snippet = {
