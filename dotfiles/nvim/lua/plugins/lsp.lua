@@ -43,7 +43,6 @@ return {
         end,
       })
 
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local on_attach = function(_, bufnr)
@@ -74,11 +73,12 @@ return {
           return
         end
 
-        lspconfig[server].setup(merge(opts, {
+        vim.lsp.config(server, merge(opts, {
           capabilities = capabilities,
           on_attach = on_attach,
-          autostart = true,
         }))
+
+        vim.lsp.enable(server)
       end
 
       setup_if_installed("lua_ls", "lua-language-server", {
@@ -140,8 +140,7 @@ return {
             inlayHints = {
               bindingModeHints = {
                 enable = true,
-              },
-              chainingHints = {
+              },chainingHints = {
                 enable = true,
               },
               closingBraceHints = {
