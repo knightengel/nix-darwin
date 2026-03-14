@@ -1,24 +1,34 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.neovim = {
     enable = true;
-    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    withNodeJs = true;
+    withPython3 = true;
   };
 
   home.packages = with pkgs; [
     git
+    gcc
     ripgrep
     fd
-    gcc
     unzip
-    stylua
+
     lua-language-server
-    nil
-    nixd
-    nodejs
+    basedpyright
+    typescript-language-server
+    vscode-langservers-extracted
+    bash-language-server
+    gopls
+    rust-analyzer
+
+    stylua
+    prettierd
+    black
+    isort
+    shfmt
   ];
 
   xdg.configFile."nvim".source = ../../dotfiles/nvim;
